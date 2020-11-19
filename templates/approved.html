@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Approved</title>
+    </head>
+    <body>
+        <h2>Approved!</h2>
+        <p>This is the approved page. Your card was approved!</p>
+        <p>Approval is based on the purchase amount. Any amount greater than 0 and less than or
+        equal to 200 is approved. Any other amount is declined.</p>
+        <h2>JSON String</h2>
+        <p>The following JSON string was returned from the processing vendor to the credit card
+        processing application.</p>
+        <p>{{json_string}}</p>
+        <h2>Another Transaction?</h2>
+        <p>Click the button to go back to the Payment Page to submit another transaction.</p>
+        <input id="button" type="button" value="Go To Payment Page" onclick="window.location.href = 'payment'" />
+        <br>
+        <p>Created by: Brett Larson</p>
+        <p>Created on: 11/01/2020</p>
+    </body>
+</html>

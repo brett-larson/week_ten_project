@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Credit Card Entry Page</title>
+    </head>
+    <body>
+        <h2>Credit Card Information Input Page</h2>
+        <p>Please enter your credit card information in the form below to complete your purchase.</p>
+
+        <form method="POST" enctype="application/json">
+            {{form.hidden_tag()}}
+            <h3>Credit Card Information Form</h3>
+            {{form.name.label}}{{form.name()}}
+            <br>
+            {{form.card_number.label}}{{form.card_number()}}
+            <br>
+            {{form.exp_date.label}}{{form.exp_date()}}
+            <br>
+            {{form.zip_code.label}}{{form.zip_code()}}
+            <br>
+            {{form.purchase_amt.label}}{{form.purchase_amt()}}
+            <br>
+            {{form.submit()}}
+        </form>
+    </body>
+</html>
