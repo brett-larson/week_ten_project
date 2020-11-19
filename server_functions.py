@@ -22,6 +22,8 @@ def approval_process(form_data_dict, json_data):
     :return:
     """
 
+    print('Getting authorization and writing the transaction to the database.')
+
     authorization = json.loads(authorize_transaction(json_data))
     write_to_db(form_data_dict, authorization)
 
@@ -37,6 +39,8 @@ def write_to_db(web_dict, vendor_dict):
 
     database_name = 'transactions.db'
 
+    print('Writing transaction to the database.')
+
     current_date_time = str(datetime.now())
     transaction_number = get_transaction_guid()
     web_dict.update(vendor_dict)
@@ -51,7 +55,11 @@ def get_transaction_guid():
     :return: Unique string of numbers representing the transaction ID
     """
 
+    print('Setting the transaction GUID.')
+
     numbers = string.digits
     transaction_number = ''.join((random.choice(numbers) for i in range(10)))
+
+    print(f"The transaction GUID is " + transaction_number)
 
     return transaction_number
