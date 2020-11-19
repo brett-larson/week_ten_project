@@ -18,6 +18,7 @@ def create_database_and_tables(database_name):
     """
 
     try:
+        print('Creating the database specified if one does not already exist.')
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
 
@@ -34,6 +35,7 @@ def create_database_and_tables(database_name):
                             )''')
         conn.commit()
         conn.close()
+        print('The database was created successfully, or it already exists.')
 
     except sqlite3.OperationalError:
         print(f"There was an error attempting to create the table. It is possible that the table"
@@ -56,11 +58,13 @@ def write_transaction_data(transaction, database_name):
                         f"'{transaction['approval_status']}', '{transaction['authorization_code']}')"
 
     try:
+        print('Writing the transaction to the database.')
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
         cursor.execute(sql_insert_string)
         conn.commit()
         conn.close()
+        print('The transaction was written successfully to the database.')
     except sqlite3.OperationalError:
         print(f"There was an error attempting to add data to the database. Please review "
               f"transaction data before continuing.")

@@ -26,6 +26,8 @@ def authorize_transaction(json_data):
     :return: JSON object with approval information.
     """
 
+    print('Beginning the authorization workflow.')
+
     data_dict = json.loads(json_data)
     masked_card_number = mask_credit_card(data_dict)
     approval = approve_deny_transaction(data_dict)
@@ -53,8 +55,11 @@ def approve_deny_transaction(data_dict):
     approval = 'approve'
     amount = float(data_dict.get('purchase_amt'))
 
+    print('Approving or declining the transaction based on the amount.')
+
     if amount >= 200 or amount < 0:
         approval = 'decline'
+    print(f"The transaction is " + approval)
 
     return approval
 
@@ -64,8 +69,13 @@ def get_authorization_code():
     Create an authorization code through the creation of a string of random letters and numbers
     :return: string authorization code
     """
+
+    print('Creating the authorization code.')
+
     letters_numbers = string.ascii_letters + string.digits
     authorization_code = ''.join((random.choice(letters_numbers) for i in range(10)))
+
+    print(f"The authorization code is " + authorization_code)
 
     return authorization_code
 
@@ -76,6 +86,8 @@ def mask_credit_card(data_dict):
     :param data_dict: Dictionary provided by the customer
     :return: String containing the last four digits of the credit card number
     """
+
+    print('Masking the credit card number.')
 
     credit_card_num = data_dict.get('card_number')
     last_four_num = credit_card_num[-4:]
