@@ -9,6 +9,7 @@
 
 # Required Imports
 import sqlite3
+from datetime import datetime
 
 
 def create_database_and_tables(database_name):
@@ -17,8 +18,11 @@ def create_database_and_tables(database_name):
     :param database_name: The name of the database to create,
     """
 
+    # Timestamp variable for logging
+    timestamp = str(datetime.now())
+
     try:
-        print('Creating the database specified if one does not already exist.')
+        print(timestamp + ': Creating the database specified if one does not already exist.')
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
 
@@ -35,11 +39,10 @@ def create_database_and_tables(database_name):
                             )''')
         conn.commit()
         conn.close()
-        print('The database was created successfully, or it already exists.')
+        print(timestamp + ': The database was created successfully, or it already exists.')
 
     except sqlite3.OperationalError:
-        print(f"There was an error attempting to create the table. It is possible that the table"
-              f" already exists. Please review and try again. The program will now exit.")
+        print(timestamp + ': There was an error attempting to create the table')
         conn.rollback()
         conn.close()
 
@@ -51,6 +54,9 @@ def write_transaction_data(transaction, database_name):
     :param database_name: The name of the database to write to.
     """
 
+    # Timestamp variable for logging
+    timestamp = str(datetime.now())
+
     sql_insert_string = f"INSERT INTO transactions VALUES ('{transaction['current_date_time']}', " \
                         f"'{transaction['transaction_number']}', '{transaction['name']}', " \
                         f"'{transaction['card_number']}', '{transaction['exp_date']}', " \
@@ -58,20 +64,18 @@ def write_transaction_data(transaction, database_name):
                         f"'{transaction['approval_status']}', '{transaction['authorization_code']}')"
 
     try:
-        print('Writing the transaction to the database.')
+        print(timestamp + ': Writing the transaction to the database.')
         conn = sqlite3.connect(database_name)
         cursor = conn.cursor()
         cursor.execute(sql_insert_string)
         conn.commit()
         conn.close()
-        print('The transaction was written successfully to the database.')
+        print(timestamp + ': The transaction was written successfully to the database.')
     except sqlite3.OperationalError:
-        print(f"There was an error attempting to add data to the database. Please review "
-              f"transaction data before continuing.")
+        print(timestamp + ': There was an error attempting to add data to the database')
         conn.rollback()
         conn.close()
     except sqlite3.IntegrityError:
-        print(f"Data you are attempting to add is invalid or not formatted properly. Please review "
-              f"data.")
+        print(timestamp + ': Data you are attempting to add is invalid or not formatted properly')
         conn.rollback()
         conn.close()

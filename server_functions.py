@@ -7,8 +7,6 @@
 """
 
 # Required Imports
-from datetime import datetime
-
 from credit_card_processor import *
 from database import *
 
@@ -22,7 +20,10 @@ def approval_process(form_data_dict, json_data):
     :return:
     """
 
-    print('Getting authorization and writing the transaction to the database.')
+    # Timestamp variable for logging
+    timestamp = str(datetime.now())
+
+    print(timestamp + ': Getting authorization and writing the transaction to the database.')
 
     authorization = json.loads(authorize_transaction(json_data))
     write_to_db(form_data_dict, authorization)
@@ -37,9 +38,12 @@ def write_to_db(web_dict, vendor_dict):
     :param vendor_dict: Dictionary containing vendor provided information
     """
 
+    # Timestamp variable for logging
+    timestamp = str(datetime.now())
+
     database_name = 'transactions.db'
 
-    print('Writing transaction to the database.')
+    print(timestamp + ': Writing transaction to the database.')
 
     current_date_time = str(datetime.now())
     transaction_number = get_transaction_guid()
@@ -55,11 +59,14 @@ def get_transaction_guid():
     :return: Unique string of numbers representing the transaction ID
     """
 
-    print('Setting the transaction GUID.')
+    # Timestamp variable for logging
+    timestamp = str(datetime.now())
+
+    print(timestamp + ': Setting the transaction GUID.')
 
     numbers = string.digits
     transaction_number = ''.join((random.choice(numbers) for i in range(10)))
 
-    print(f"The transaction GUID is " + transaction_number)
+    print(timestamp + ': The transaction GUID is ' + transaction_number)
 
     return transaction_number
